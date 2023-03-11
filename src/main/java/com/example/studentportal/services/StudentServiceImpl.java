@@ -1,2 +1,4 @@
-package com.example.studentportal.services;public class StudentServiceImpl {
+package com.example.studentportal.services;
+
+public class StudentServiceImpl {
 }

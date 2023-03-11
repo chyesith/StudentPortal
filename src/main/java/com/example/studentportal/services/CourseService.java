@@ -1,2 +1,4 @@
-package com.example.studentportal.services;public interface CourseService {
+package com.example.studentportal.services;
+
+public interface CourseService {
 }
