@@ -1,10 +1,35 @@
 package com.example.studentportal.models;
 
+
+import jakarta.persistence.*;
+
+@Entity(name = "Student")
+@Table(name = "student", uniqueConstraints = {
+        @UniqueConstraint(name = "student_email_unique", columnNames = "email")
+})
+
 public class Student {
+    @Id
+    @SequenceGenerator(name = "student_sequence",
+            sequenceName = "student_sequence",
+            allocationSize = 1
+
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "student_sequence")
+    @Column(name = "studentId", updatable = false)
     Long studentId;
+
+    @Column(name = "first_name", nullable = false, columnDefinition = "TEXT")
     String firstName;
+    @Column(name = "last_name", nullable = false, columnDefinition = "TEXT")
     String lastName;
+
+    @Column(name = "email", nullable = false, columnDefinition = "TEXT")
     String email;
+
+    @Column(name = "graduation_eligibility", nullable = false, columnDefinition = "tinyint(1) default(1)")
+    Boolean graduationEligibility;
 
     public Student(Long studentId, String firstName, String lastName, String email) {
         this.studentId = studentId;
