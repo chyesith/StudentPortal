@@ -28,6 +28,9 @@ public class Student {
     @Column(name = "email", nullable = false, columnDefinition = "TEXT")
     String email;
 
+    @Column(name = "password", nullable = false, columnDefinition = "TEXT")
+    String password;
+
     @Column(name = "graduation_eligibility", nullable = false, columnDefinition = "tinyint(1) default(1)")
     Boolean graduationEligibility;
 
