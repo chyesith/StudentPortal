@@ -4,6 +4,7 @@ package com.example.studentportal.services;
 import com.example.studentportal.dtos.StudentDTO;
 import com.example.studentportal.models.Student;
 import com.example.studentportal.models.StudentRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,22 +14,23 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public Student findByEmail(String email) {
-        return this.studentRepository.findStudentByEmail(email);
-    }
-
-    @Override
     public void authentication(String userName, String password) {
 
     }
 
     @Override
-    public void addNewStudent(StudentDTO student) {
-
+    public ResponseEntity<Student> addNewStudent(StudentDTO student) {
+        //TODO check email exsting on the model name a
+        return null;
     }
 
     @Override
-    public void updateStudentProfile(Student student) {
+    public ResponseEntity<Student> updateStudentProfile(Student student, Long id) {
+        return null;
+    }
 
+    @Override
+    public ResponseEntity<?> delete(Long id) {
+        return null;
     }
 }
