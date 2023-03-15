@@ -1,11 +1,17 @@
 package com.example.studentportal.dtos;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 
 @AllArgsConstructor
-public class StudentDTO {
+@Getter
+@Setter
+public class StudentDTO   {
+    @NonNull
+    private Long sid;
     @NonNull
     private String firstname;
     @NonNull
