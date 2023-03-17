@@ -6,7 +6,7 @@ import com.example.studentportal.services.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,8 +26,8 @@ public class StudentController {
     @PostMapping("api/v1/update")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public void createOrUpdateStudent(@Valid @RequestBody  StudentDTO student) {
-        this.studentService.addNewStudent(student);
+    public ResponseEntity<Student> createOrUpdateStudent(@Valid @RequestBody  StudentDTO student) {
+       return this.studentService.addNewStudent(student);
     }
 
     @GetMapping("api/v1/delete/{id}")

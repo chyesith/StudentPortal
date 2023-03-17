@@ -12,7 +12,7 @@ public class CourseController {
     private CourseService courseService;
 
 
-    @GetMapping("/courses")
+    @GetMapping("api/v1/courses")
     List<Course> all() {
        return this.courseService.viewAllCourses();
     }
