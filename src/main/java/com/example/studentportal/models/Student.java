@@ -3,8 +3,11 @@ package com.example.studentportal.models;
 
 import jakarta.persistence.*;
 
-@Entity(name = "Student")
-@Table(name = "student", uniqueConstraints = {
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity(name = "Students")
+@Table(name = "Students", uniqueConstraints = {
         @UniqueConstraint(name = "student_email_unique", columnNames = "email")
 })
 
@@ -17,8 +20,8 @@ public class Student {
     )
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "student_sequence")
-    @Column(name = "studentId", updatable = false)
-    Long studentId;
+    //@Column(name = "student_id", updatable = false)
+    Long id;
 
     @Column(name = "first_name", nullable = false, columnDefinition = "TEXT")
     String firstName;
@@ -31,22 +34,58 @@ public class Student {
     @Column(name = "password", nullable = false, columnDefinition = "TEXT")
     String password;
 
-    @Column(name = "graduation_eligibility", nullable = false, columnDefinition = "tinyint(1) default(1)")
+    @Column(name = "graduation_eligibility", nullable = false, columnDefinition = "BOOLEAN")
     Boolean graduationEligibility;
 
-    public Student(Long studentId, String firstName, String lastName, String email) {
-        this.studentId = studentId;
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST
+    )
+    @JoinTable(
+            name = "enrolled_courses",
+            joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"))
+    Set<Course> enrolledCourses = new HashSet<Course>();
+
+    public Student(String firstName, String lastName, String email, String password, Boolean graduationEligibility, Set<Course> enrolledCourses) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.password = password;
+        this.graduationEligibility = graduationEligibility;
+        this.enrolledCourses = enrolledCourses;
     }
 
-    public Long getStudentId() {
-        return studentId;
+    public String getPassword() {
+        return password;
     }
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
+    public Boolean getGraduationEligibility() {
+        return graduationEligibility;
+    }
+
+    public Set<Course> getEnrolledCourses() {
+        return enrolledCourses;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setGraduationEligibility(Boolean graduationEligibility) {
+        this.graduationEligibility = graduationEligibility;
+    }
+
+    public void setEnrolledCourses(Set<Course> enrolledCourses) {
+        this.enrolledCourses = enrolledCourses;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -73,13 +112,21 @@ public class Student {
         this.email = email;
     }
 
+    public void addCourseF(Course course){
+        this.enrolledCourses.add(course);
+        //course.getEnrolled().add(this);
+    }
+
     @Override
     public String toString() {
         return "Student{" +
-                "studentId=" + studentId +
+                "studentId=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", graduationEligibility=" + graduationEligibility +
+                ", enrolledCourses=" + enrolledCourses +
                 '}';
     }
 }

@@ -16,23 +16,24 @@ public class StudentController {
     private  StudentService studentService;
 
 
-    @PostMapping("api/v1/create")
-    @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
-    private void registration(@RequestBody StudentDTO student) {
 
+
+    @PostMapping("api/v1/student/create")
+    @ResponseBody
+    public ResponseEntity<Student> createStudent(@Valid @RequestBody StudentDTO student) {
+       return this.studentService.createStudentProfile(student);
     }
 
-    @PostMapping("api/v1/update")
-    @ResponseStatus(HttpStatus.CREATED)
+    @PutMapping ("api/v1/student/update")
     @ResponseBody
-    public ResponseEntity<Student> createOrUpdateStudent(@Valid @RequestBody  StudentDTO student) {
-       return this.studentService.addNewStudent(student);
+    public ResponseEntity<Student> update(@Valid @RequestBody  Student student) {
+        return this.studentService.updateStudentProfile(student);
     }
 
-    @GetMapping("api/v1/delete/{id}")
-    public void deleteStudentById(@PathVariable Long id){
-        //this.studentService.
+
+    @DeleteMapping("api/v1/student/delete/{id}")
+    public ResponseEntity<HttpStatus> deleteStudentById(@PathVariable Long id){
+       return this.studentService.delete(id);
     }
 
 

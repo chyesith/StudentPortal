@@ -1,8 +1,12 @@
 package com.example.studentportal.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity(name = "Course")
@@ -16,8 +20,8 @@ public class Course {
             allocationSize = 1
 
     )
-    @Column(name = "course_id", updatable = false)
-    Long courseId;
+  //  @Column(name = "course_id", updatable = false)
+    Long id;
 
     @Column(name = "description",  nullable = false , columnDefinition = "TEXT")
 
@@ -30,6 +34,14 @@ public class Course {
     Double courseFee;
 
 
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST,
+            mappedBy = "enrolledCourses")
+    @JsonIgnore
+    Set<Student> enrolled = new HashSet<Student>();
+
+
     public Course( String description, String courseName , Double courseFee) {
         this.description = description;
         this.courseName = courseName;
@@ -37,12 +49,12 @@ public class Course {
     }
 
 
-    public Long getCourseId() {
-        return courseId;
+    public Long getId() {
+        return id;
     }
 
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescription() {
@@ -68,10 +80,14 @@ public class Course {
         this.courseFee = courseFee;
     }
 
+    public Set<Student> getEnrolled() {
+        return enrolled;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
-                "courseId=" + courseId +
+                "courseId=" + id +
                 ", description='" + description + '\'' +
                 ", courseName='" + courseName + '\'' +
                 ", courseFee=" + courseFee +

@@ -11,4 +11,6 @@ public interface CourseService {
 
     //TODO add class
     List<Course> viewAllCourses();
+
+    Course enrollCourseBySid(Long sid , Long cid) throws Exception;
 }

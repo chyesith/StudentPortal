@@ -3,10 +3,8 @@ package com.example.studentportal.controllers;
 import com.example.studentportal.dtos.CourseDTO;
 import com.example.studentportal.models.Course;
 import com.example.studentportal.services.CourseService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,6 +25,12 @@ public class CourseController {
 
     @GetMapping("api/v1/courses")
     List<Course> all() {
-       return this.courseService.viewAllCourses();
+        return this.courseService.viewAllCourses();
+    }
+
+
+    @PostMapping("api/v1/enroll/{courseId}/{studentId}")
+    Course enrollCourseByStudentId(@PathVariable(value = "studentId") Long studentId, @PathVariable(value = "courseId") Long courseId) throws Exception {
+        return this.courseService.enrollCourseBySid(studentId, courseId);
     }
 }
