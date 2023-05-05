@@ -16,7 +16,7 @@ public class CourseDTO {
     double courseFee;
 
     public Course toEntity() {
-        return  new Course(this.courseName , this.description , this.courseFee);
+        return  new Course( this.description , this.courseName  , this.courseFee);
     }
 
 }

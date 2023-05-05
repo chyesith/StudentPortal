@@ -5,9 +5,12 @@ import com.example.studentportal.models.Course;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Set;
 
 public interface CourseService {
     Course addNew(CourseDTO course);
+
+    Set<Course> enrolledCoursesBySid(Long sid);
 
     //TODO add class
     List<Course> viewAllCourses();

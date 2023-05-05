@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -29,6 +30,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> viewAllCourses() {
         return this.courseRepository.findAll();
+    }
+
+    public Set<Course> enrolledCoursesBySid(Long sid) {
+        Student _student = studentRepository.findStudentById(sid);
+        return _student.getEnrolledCourses();
     }
 
     @Override
