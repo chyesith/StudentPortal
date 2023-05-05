@@ -17,13 +17,14 @@ public class StudentController {
 
 
 
-
+    @CrossOrigin("*")
     @PostMapping("api/v1/student/create")
     @ResponseBody
     public ResponseEntity<Student> createStudent(@Valid @RequestBody StudentDTO student) {
        return this.studentService.createStudentProfile(student);
     }
 
+    @CrossOrigin("*")
     @PutMapping ("api/v1/student/update")
     @ResponseBody
     public ResponseEntity<Student> update(@Valid @RequestBody  Student student) {
@@ -31,6 +32,7 @@ public class StudentController {
     }
 
 
+    @CrossOrigin("*")
     @DeleteMapping("api/v1/student/delete/{id}")
     public ResponseEntity<HttpStatus> deleteStudentById(@PathVariable Long id){
        return this.studentService.delete(id);
