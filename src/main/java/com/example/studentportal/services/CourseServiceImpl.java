@@ -6,8 +6,14 @@ import com.example.studentportal.models.Course;
 import com.example.studentportal.models.CourseRepository;
 import com.example.studentportal.models.Student;
 import com.example.studentportal.models.StudentRepository;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import org.springframework.http.HttpHeaders;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -46,8 +52,18 @@ public class CourseServiceImpl implements CourseService {
             throw new Exception("course not found for id: " + enroll.getCourseId());
         } else {
             Course current =  course.get();
-            student.ifPresent(value -> value.addCourseF(current));
+            student.ifPresent(value -> {value.addCourseF(current);
+                value.setGraduationEligibility(false);
+            });
             studentRepository.save(student.get());
+//            String uri = "http://localhost:8081/invoice";
+//            RestTemplate restTemplate = new RestTemplate();
+//            Invoice _invoice = new Invoice(current.getCourseFee(), "Course", student.get().getEmail());
+//            HttpHeaders headers = new HttpHeaders();
+//            headers.setContentType(MediaType.APPLICATION_JSON);
+//            HttpEntity entity = new HttpEntity(_invoice, headers);
+//            ResponseEntity<String> inv = restTemplate.exchange(uri, HttpMethod.POST, entity
+//                    , String.class);
             return courseRepository.save(current);
         }
     }

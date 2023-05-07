@@ -7,6 +7,7 @@ import com.example.studentportal.models.StudentRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 
@@ -33,6 +34,10 @@ public class StudentServiceImpl implements StudentService {
     public ResponseEntity<Student> createStudentProfile(StudentDTO student) {
        try {
            Student _student = this.studentRepository.save(student.toEntity());
+//           String uri="http://localhost:3000/account";
+//           RestTemplate restTemplate = new RestTemplate();
+//           Student _financeStudent = new Student(student.getFirstname(), student.getLastname(), student.getEmail(), student.getPassword() , true , null);
+//           restTemplate.postForObject(uri, _financeStudent, Student.class);
             return new ResponseEntity<>(_student , HttpStatus.CREATED);
        }catch (Exception e) {
            return new ResponseEntity<>(null , HttpStatus.INTERNAL_SERVER_ERROR);
