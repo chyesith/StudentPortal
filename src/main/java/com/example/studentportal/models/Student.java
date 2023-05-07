@@ -2,6 +2,8 @@ package com.example.studentportal.models;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +12,8 @@ import java.util.Set;
 @Table(name = "Students", uniqueConstraints = {
         @UniqueConstraint(name = "student_email_unique", columnNames = "email")
 })
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class Student {
     @Id
     @SequenceGenerator(name = "student_sequence",

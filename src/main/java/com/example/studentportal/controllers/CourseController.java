@@ -1,6 +1,7 @@
 package com.example.studentportal.controllers;
 
 import com.example.studentportal.dtos.CourseDTO;
+import com.example.studentportal.dtos.Enroll;
 import com.example.studentportal.models.Course;
 import com.example.studentportal.services.CourseService;
 import org.springframework.http.ResponseEntity;
@@ -32,13 +33,14 @@ public class CourseController {
 
 
     @CrossOrigin("*")
-    @PostMapping("api/v1/courses/enroll/{courseId}/{studentId}")
-    Course enrollCourseByStudentId(@PathVariable(value = "studentId") Long studentId, @PathVariable(value = "courseId") Long courseId) throws Exception {
-        return this.courseService.enrollCourseBySid(studentId, courseId);
+    @PostMapping("api/v1/courses/enroll")
+    Course enrollCourseByStudentId(@RequestBody Enroll enroll) throws Exception {
+        return this.courseService.enrollCourseBySid(enroll);
     }
 
-    @GetMapping ("api/v1/courses/enrolled/{studentId}")
-    Set<Course> enrolledCourses(@PathVariable(value = "studentId") Long sid)  {
+    @CrossOrigin("*")
+    @GetMapping ("api/v1/courses/enrolled")
+    Set<Course> enrolledCourses(@RequestParam Long sid)  {
         return this.courseService.enrolledCoursesBySid(sid);
     }
 }

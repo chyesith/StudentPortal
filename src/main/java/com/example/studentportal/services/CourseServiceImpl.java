@@ -1,6 +1,7 @@
 package com.example.studentportal.services;
 
 import com.example.studentportal.dtos.CourseDTO;
+import com.example.studentportal.dtos.Enroll;
 import com.example.studentportal.models.Course;
 import com.example.studentportal.models.CourseRepository;
 import com.example.studentportal.models.Student;
@@ -38,11 +39,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course enrollCourseBySid(Long sid, Long cid) throws Exception {
-        Optional<Student> student = studentRepository.findById(sid);
-        Optional<Course> course = courseRepository.findById(sid);
+    public Course enrollCourseBySid(Enroll enroll) throws Exception {
+        Optional<Student> student = studentRepository.findById(enroll.getStudentId());
+        Optional<Course> course = courseRepository.findById(enroll.getCourseId());
         if (course.isEmpty()) {
-            throw new Exception("course not found for id: " + cid);
+            throw new Exception("course not found for id: " + enroll.getCourseId());
         } else {
             Course current =  course.get();
             student.ifPresent(value -> value.addCourseF(current));

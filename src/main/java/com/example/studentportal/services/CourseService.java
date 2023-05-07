@@ -1,6 +1,7 @@
 package com.example.studentportal.services;
 
 import com.example.studentportal.dtos.CourseDTO;
+import com.example.studentportal.dtos.Enroll;
 import com.example.studentportal.models.Course;
 import org.springframework.http.ResponseEntity;
 
@@ -15,5 +16,5 @@ public interface CourseService {
     //TODO add class
     List<Course> viewAllCourses();
 
-    Course enrollCourseBySid(Long sid , Long cid) throws Exception;
+    Course enrollCourseBySid(Enroll enroll) throws Exception;
 }
